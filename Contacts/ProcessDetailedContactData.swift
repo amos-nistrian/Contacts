@@ -42,10 +42,33 @@ func processContactData(contact : Contact) -> Void {
     dict["ADDRESS"] = addr
     
     sectionOrder.append("BIRTHDATE")
-    dict["BIRTHDATE"] = contact.birthdate
+    dict["BIRTHDATE"] = convertDate(dateStr: contact.birthdate)
     
     sectionOrder.append("EMAIL")
     dict["EMAIL"] = contact.emailAddress
     
+}
+
+// convert the birthdate ex: 1987-05-11 becomes May 11, 1987
+func convertDate(dateStr : String) -> String {
+
+    let formatter = DateFormatter()
+    // initially set the format based on your datepicker date
+    formatter.dateFormat = "yyyy-MM-dd"
+    
+    let date = formatter.date(from: dateStr)
+    
+    let myString = formatter.string(from: date!)
+    // convert your string to date
+    let yourDate = formatter.date(from: myString)
+    //then again set the date format whhich type of output you need
+    //formatter.dateFormat = "dd-MMM-yyyy"
+    formatter.dateFormat = "MMMM dd, yyyy"
+    
+    // again convert your date to string
+    let myStringafd = formatter.string(from: yourDate!)
+    
+    print(myStringafd)
+    return(myStringafd)
 }
 
